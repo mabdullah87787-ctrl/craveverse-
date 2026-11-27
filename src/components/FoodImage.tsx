@@ -8,10 +8,20 @@ interface FoodImageProps {
   fallbackLabel?: string;
 }
 
+export function resolveAssetUrl(path: string): string {
+  if (!path) return path;
+  if (/^(https?:|data:|blob:)/.test(path)) return path;
+  const base = import.meta.env.BASE_URL || '/';
+  const cleanBase = base.endsWith('/') ? base : `${base}/`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${cleanBase}${cleanPath}`;
+}
+
 export function FoodImage({ src, alt, className = '', fallbackLabel }: FoodImageProps) {
   const [hasError, setHasError] = useState(false);
+  const resolvedSrc = resolveAssetUrl(src);
 
-  if (hasError || !src) {
+  if (hasError || !resolvedSrc) {
     return (
       <div
         className={`flex flex-col items-center justify-center bg-gradient-to-br from-[#1D1D1D] via-[#141414] to-[#261914] text-[#D9CBBF] p-4 ${className}`}
@@ -28,7 +38,7 @@ export function FoodImage({ src, alt, className = '', fallbackLabel }: FoodImage
 
   return (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       referrerPolicy="no-referrer"
       loading="lazy"

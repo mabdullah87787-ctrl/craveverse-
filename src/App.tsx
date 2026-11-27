@@ -15,10 +15,15 @@ import { OffersPage } from './pages/OffersPage';
 import { RoutePath } from './types';
 
 const VALID_ROUTES: RoutePath[] = ['/', '/menu', '/offers', '/about', '/contact'];
+const BASE_PREFIX = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
 function normalizePath(pathname: string): string {
-  if (!pathname || pathname === '/') return '/';
-  return pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  let clean = pathname || '/';
+  if (BASE_PREFIX && clean.startsWith(BASE_PREFIX)) {
+    clean = clean.slice(BASE_PREFIX.length) || '/';
+  }
+  if (!clean || clean === '/') return '/';
+  return clean.endsWith('/') ? clean.slice(0, -1) : clean;
 }
 
 export default function App() {
@@ -51,7 +56,8 @@ export default function App() {
   const navigate = useCallback((path: RoutePath) => {
     const normalized = normalizePath(path);
     if (normalized !== currentPath) {
-      window.history.pushState({}, '', normalized);
+      const targetUrl = `${BASE_PREFIX}${normalized}` || '/';
+      window.history.pushState({}, '', targetUrl);
       setCurrentPath(normalized);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });

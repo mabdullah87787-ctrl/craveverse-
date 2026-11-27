@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { IMAGES } from '../data/menuData';
 import { RoutePath } from '../types';
+import { resolveAssetUrl } from './FoodImage';
 
 interface KitchenFilmSectionProps {
   onNavigate: (path: RoutePath) => void;
@@ -143,8 +144,8 @@ export function KitchenFilmSection({ onNavigate }: KitchenFilmSectionProps) {
             <div className="relative aspect-video bg-[#0B0B0B] overflow-hidden">
               <video
                 ref={videoRef}
-                src="/videos/craveverse-film.mp4"
-                poster={IMAGES.openKitchen}
+                src={resolveAssetUrl('/videos/craveverse-film.mp4')}
+                poster={resolveAssetUrl(IMAGES.openKitchen)}
                 muted
                 loop
                 playsInline
