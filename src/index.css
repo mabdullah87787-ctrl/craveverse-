@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-charcoal: #101010;
+  --color-charcoal-surface: #181818;
+  --color-charcoal-elevated: #222222;
+  --color-flame: #FF5A1F;
+  --color-flame-hover: #E84A10;
+  --color-cream: #FFF4E8;
+  --color-cream-muted: #D9CBBF;
+  --color-gold: #FFCB45;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: #101010;
+    color: #FFF4E8;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes floatAlt {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, 8px, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.animate-float-alt {
+  animation: floatAlt 6.2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float-slow,
+  .animate-float-alt,
+  .animate-marquee {
+    animation: none !important;
+  }
+}

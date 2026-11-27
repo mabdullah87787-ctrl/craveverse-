@@ -1,0 +1,6 @@
+{
+  "name": "CRAVEVERSE",
+  "description": "Where Every Bite Becomes an Experience — Premium fast-food brand featuring smash burgers, wood-fired pizzas, crispy chicken, special deals, and express ordering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
